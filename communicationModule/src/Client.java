@@ -189,9 +189,9 @@ public class Client {
 						command = "W280000ABCD0201005555555555";
 					}else if(command.equals("bell")) {
 						command = "W280000ABCD0201015555555555";
-					}else if(command.substring(0,2).equals("up")) {
-						command = "W280000ABCD020102"+command.substring(2,4)+"55555555";
-					}else if(command.substring(0,2).equals("down")) {
+					}else if(command.substring(0,2).equals("RT")) {
+						command = "W280000ABCD020102"+command.substring(3,5)+"55555555";
+					}else if(command.substring(0,2).equals("dn")) {
 						command = "W280000ABCD020103"+command.substring(2,4)+"55555555";
 					}
 					System.out.println("Receive form server2 = " + command);

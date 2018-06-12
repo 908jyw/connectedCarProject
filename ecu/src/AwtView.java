@@ -67,6 +67,7 @@ public class AwtView {
 			chk[i] = new Checkbox("");
 		}
 		//chk[0].setState(true);
+		
 		chkP1.add(chk[0]);
 		chkP1.add(chk[1]);
 		chkP1.add(chk[2]);
