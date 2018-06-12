@@ -152,5 +152,5 @@ public class SerialCan implements SerialPortEventListener {
 	public String getCommand() {
 		return command;
 	}
-
+	
 }

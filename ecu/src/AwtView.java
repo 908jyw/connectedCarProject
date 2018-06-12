@@ -67,7 +67,6 @@ public class AwtView {
 			chk[i] = new Checkbox("");
 		}
 		//chk[0].setState(true);
-		
 		chkP1.add(chk[0]);
 		chkP1.add(chk[1]);
 		chkP1.add(chk[2]);
@@ -138,10 +137,10 @@ public class AwtView {
 		}
 		msg = serialCan.getMsg();
 		reqLabel.setText(msg);
-		if(msg.substring(3, 5).equals("상승")) {
-			resLabel.setText("온풍기 가동하겠습니다.");
-		}else if(msg.substring(3, 5).equals("하강")) {
+		if(Integer.parseInt(msg.substring(12, 14)) < Integer.parseInt(serialCan.getHT().substring(19, 21),16)) {
 			resLabel.setText("에어컨 가동하겠습니다.");
+		}else if(Integer.parseInt(msg.substring(12, 14)) > Integer.parseInt(serialCan.getHT().substring(19, 21),16)) {
+			resLabel.setText("온풍기 가동하겠습니다.");
 		}else {
 			reqLabel.setText("request message");
 			resLabel.setText("response message");
@@ -150,7 +149,7 @@ public class AwtView {
 		bt[0].setLabel("Speed : " + Integer.parseInt(serialCan.getSpeed().substring(17, 19),16) +"Km/h");
 		bt[1].setLabel("Humidity : " + Integer.parseInt(serialCan.getHT().substring(17, 19),16) +"%");
 		bt[2].setLabel("온도: " + Integer.parseInt(serialCan.getHT().substring(19, 21),16) +"C");
-		bt[3].setLabel("요청받은 온도: " + msg.substring(18,20) + "C");
+		bt[3].setLabel("요청받은 온도: " + msg.substring(12,14) + "C");
 		bt[4].setLabel("RPM : " + serialCan.getEngineRPM() + "rpm");
 		bt[5].setLabel("Engine Load Value : " + serialCan.getEngineLodeValue() + "%");
 		bt[6].setLabel("Coolant Temperature : " + serialCan.getEngineCoolant() + "C");

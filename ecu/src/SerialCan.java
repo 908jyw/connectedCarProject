@@ -29,7 +29,7 @@ public class SerialCan implements SerialPortEventListener {
 	static int throttle = 0;
 	static int seat[] = new int [16];
 	//static String msg = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
-	static String msg = "온도 상승 요청이 들어왔습니다. " + 37 + "도까지 올려주세요";
+	static String msg = "온도요청 들어왔습니다 37";
 	
 	
 	Random random = new Random();
@@ -177,9 +177,8 @@ public class SerialCan implements SerialPortEventListener {
 					}else if(PID.equals("01")) {
 						command = ss;
 					}else if(PID.equals("02")) {
-						setUpMsg(ss);
-					}else if(PID.equals("03")) {
-						setDownMsg(ss);
+						setRTMsg(ss);
+						System.out.println("온도요청 들어왔습니다 " + str.substring(18,20));
 					}
 					
 					this.sendMsg(str);
@@ -193,12 +192,10 @@ public class SerialCan implements SerialPortEventListener {
 			break;
 		}
 	}
-	public void setUpMsg(String str) {
-		msg = "온도 상승 요청이 들어왔습니다. " + str.substring(18,20) + "도까지 올려주세요";
+	public void setRTMsg(String str) {
+		msg = "온도요청 들어왔습니다 " + str.substring(18,20) + "도";
 	}
-	public void setDownMsg(String str) {
-		msg = "온도 하강 요청이 들어왔습니다. " + str.substring(18,20) + "도까지 내려주세요";
-	}
+
 	public String getMsg() {
 		return msg;
 	}
@@ -291,7 +288,7 @@ public class SerialCan implements SerialPortEventListener {
 	}
 	
 	public void setEngineRPM(String str) {
-		engineRPM = Integer.parseInt(str.substring(18, 20),16) - 40;
+		engineRPM = (Integer.parseInt(str.substring(18, 20),16)*256 + Integer.parseInt(str.substring(20, 22),16))/4;
 	}
 	public int getEngineRPM() {
 		return engineRPM;
@@ -339,7 +336,9 @@ public class SerialCan implements SerialPortEventListener {
 		String C = "55";
 		String D = "55";
 		//System.out.println(Integer.parseInt(s.substring(2, s.length())));
-		A = Integer.toHexString(Integer.parseInt(s.substring(2, s.length())));
+		//if(s.charAt(0) != 'v') {
+			A = Integer.toHexString(Integer.parseInt(s.substring(2, s.length())));
+		//}
 		speed = "W280000ABCD" + "02010D" + A + B + C + D + "55";
 	}
 
