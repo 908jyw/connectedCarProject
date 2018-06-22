@@ -3,7 +3,7 @@ public class Main {
 		
 		SerialCan serialCan = null;
 		try {
-			serialCan = new SerialCan("COM4");
+			serialCan = new SerialCan("COM3");
 			
 			Client client = new Client(serialCan);
 			client.start();

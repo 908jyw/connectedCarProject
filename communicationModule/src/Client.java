@@ -23,7 +23,7 @@ public class Client {
 		Socket socket = null;
 
 		try {
-			String serverIp = "192.168.0.31";
+			String serverIp = "70.12.241.78";
 			socket = new Socket(serverIp, 8888);
 			System.out.println("connected Server");
 
